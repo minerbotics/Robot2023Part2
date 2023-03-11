@@ -136,4 +136,38 @@ public final class Constants {
         new TrapezoidProfile.Constraints(
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
   }
+
+  public static final class ArmConstants {
+    public static final int RIGHT_ARM_MOTOR = 13;
+    public static final int LEFT_ARM_MOTOR = 14;
+    public static final double maxMotorVoltage = 2.5;
+
+    public static double kP;
+    public static double kI;
+    public static double kD;
+    
+    public static double kS;
+    public static double kV;
+    public static double kA;
+    public static double kG;
+
+    public enum Position {
+      STOWED(0.0);
+
+      private double armPos;
+
+      private Position(double arm) {
+        this.armPos = arm;
+      }
+
+      public double getArm() {
+        return armPos;
+      }
+    }
+  }
+
+  public static final class GrabberConstants {
+    public static final int FORWARD_CHANNEL = 2;
+    public static final int REVERSE_CHANNEL = 1;
+  }
 }

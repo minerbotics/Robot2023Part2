@@ -22,7 +22,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   /* Controllers */
   private final CommandXboxController driver = new CommandXboxController(0);
-  //private final CommandXboxController operator = new CommandXboxController(1);
+  private final CommandXboxController operator = new CommandXboxController(1);
 
   /* Drive Controls */
   private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -31,6 +31,7 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
+  private final Grabber m_Grabber = new Grabber();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -55,6 +56,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
+    /* Operator Buttons */
+    operator.rightBumper().onTrue(new ToggleGrabber(m_Grabber));
   }
 
   /**
