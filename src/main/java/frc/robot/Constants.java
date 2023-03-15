@@ -138,8 +138,8 @@ public final class Constants {
   }
 
   public static final class ArmConstants {
-    public static final int RIGHT_ARM_MOTOR = 13;
-    public static final int LEFT_ARM_MOTOR = 14;
+    public static final int PIVOT_MOTOR = 13;
+    public static final int TELESCOPE_MOTOR = 14;
     public static final double maxMotorVoltage = 2.5;
 
     public static double kP;
@@ -152,16 +152,26 @@ public final class Constants {
     public static double kG;
 
     public enum Position {
-      STOWED(0.0);
+      STOWED(0.0, 0.0),
+      FLOOR(1.0, 1.0),
+      MID(2.0, 2.0),
+      TOP(3.0, 3.0),
+      LOAD(3.5, 3.0);
 
-      private double armPos;
+      private double pivotPos;
+      private double telescopePos;
 
-      private Position(double arm) {
-        this.armPos = arm;
+      private Position(double pivot, double telescope) {
+        this.pivotPos = pivot;
+        this.telescopePos = telescope;
       }
 
-      public double getArm() {
-        return armPos;
+      public double getPivot() {
+        return pivotPos;
+      }
+
+      public double getTelescope() {
+        return telescopePos;
       }
     }
   }

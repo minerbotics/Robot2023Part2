@@ -10,26 +10,21 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Arm extends SubsystemBase {
+public class ArmPivot extends SubsystemBase {
 
-    private final CANSparkMax m_RightArmMotor;
-    private final CANSparkMax m_LeftArmMotor;
+    private final CANSparkMax m_ArmMotor;
     private final RelativeEncoder m_Encoder;
     private final PIDController m_PidController;
     private final ArmFeedforward m_Feedforward;
 
     private double m_CurrentPosition;
 
-    public Arm() {
-        m_RightArmMotor = new CANSparkMax(
-            ArmConstants.RIGHT_ARM_MOTOR, 
+    public ArmPivot() {
+        m_ArmMotor = new CANSparkMax(
+            ArmConstants.PIVOT_MOTOR, 
             CANSparkMaxLowLevel.MotorType.kBrushless);
-        m_LeftArmMotor = new CANSparkMax(
-            ArmConstants.LEFT_ARM_MOTOR, 
-            CANSparkMaxLowLevel.MotorType.kBrushless);
-        m_LeftArmMotor.follow(m_RightArmMotor, true);
 
-        m_Encoder = m_RightArmMotor.getEncoder();
+        m_Encoder = m_ArmMotor.getEncoder();
 
         m_PidController = new PIDController(ArmConstants.kP, ArmConstants.kI, ArmConstants.kD);
         m_PidController.enableContinuousInput(0, Math.PI * 2);
@@ -37,7 +32,7 @@ public class Arm extends SubsystemBase {
 
         m_Feedforward = new ArmFeedforward(ArmConstants.kS, ArmConstants.kG, ArmConstants.kV, ArmConstants.kA);
 
-        setPosition(ArmConstants.Position.STOWED.getArm());
+        setPosition(ArmConstants.Position.STOWED.getPivot());
     }
 
     @Override
@@ -56,7 +51,7 @@ public class Arm extends SubsystemBase {
     }
 
     public void setMotor(double voltage) {
-        m_RightArmMotor.setVoltage(voltage);
+        m_ArmMotor.setVoltage(voltage);
     }
 
     public Command setPose(double position) {
