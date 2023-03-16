@@ -33,6 +33,12 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
   private final Grabber m_Grabber = new Grabber();
 
+  private ArmTelescope m_ArmTelescope = new ArmTelescope();
+  private ArmPivot m_ArmPivot = new ArmPivot();
+
+  /* Commands */
+  private PivotArm m_Pivot;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
@@ -42,6 +48,9 @@ public class RobotContainer {
             () -> -driver.getRawAxis(strafeAxis),
             () -> -driver.getRawAxis(rotationAxis),
             () -> driver.leftBumper().getAsBoolean()));
+
+    m_Pivot = new PivotArm(m_ArmPivot, operator);
+    m_ArmPivot.setDefaultCommand(m_Pivot);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -56,9 +65,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    
 
     /* Operator Buttons */
     operator.rightBumper().onTrue(new ToggleGrabber(m_Grabber));
+    //operator.y().onTrue(new PivotArm(m_ArmPivot, operator));
+    operator.rightTrigger().whileTrue(new RetractTelescope(m_ArmTelescope));
+    operator.leftTrigger().whileTrue(new ExtendTelescope(m_ArmTelescope));
   }
 
   /**

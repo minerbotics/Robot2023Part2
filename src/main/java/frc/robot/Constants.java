@@ -140,7 +140,7 @@ public final class Constants {
   public static final class ArmConstants {
     public static final int PIVOT_MOTOR = 13;
     public static final int TELESCOPE_MOTOR = 14;
-    public static final double maxMotorVoltage = 2.5;
+    public static final double maxMotorVoltage = 12;
 
     public static double kP;
     public static double kI;
@@ -177,7 +177,7 @@ public final class Constants {
   }
 
   public static final class GrabberConstants {
-    public static final int FORWARD_CHANNEL = 2;
-    public static final int REVERSE_CHANNEL = 1;
+    public static final int FORWARD_CHANNEL = 6;
+    public static final int REVERSE_CHANNEL = 7;
   }
 }
