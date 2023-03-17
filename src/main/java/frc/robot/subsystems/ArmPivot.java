@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmPivot extends SubsystemBase {
 
-    private final CANSparkMax m_ArmMotor;
+    private final CANSparkMax m_RightArmMotor;
+    private final CANSparkMax m_LeftArmMotor;
     private final RelativeEncoder m_Encoder;
     private final PIDController m_PidController;
     private final ArmFeedforward m_Feedforward;
@@ -20,11 +21,16 @@ public class ArmPivot extends SubsystemBase {
     private double m_CurrentPosition;
 
     public ArmPivot() {
-        m_ArmMotor = new CANSparkMax(
-            ArmConstants.PIVOT_MOTOR, 
+        m_RightArmMotor = new CANSparkMax(
+            ArmConstants.PIVOT_MOTOR_RIGHT, 
+            CANSparkMaxLowLevel.MotorType.kBrushless);
+        m_LeftArmMotor = new CANSparkMax(
+            ArmConstants.PIVOT_MOTOR_LEFT, 
             CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        m_Encoder = m_ArmMotor.getEncoder();
+        m_LeftArmMotor.follow(m_RightArmMotor, true);
+
+        m_Encoder = m_RightArmMotor.getEncoder();
 
         m_PidController = new PIDController(ArmConstants.kP, ArmConstants.kI, ArmConstants.kD);
         m_PidController.enableContinuousInput(0, Math.PI * 2);
@@ -51,7 +57,7 @@ public class ArmPivot extends SubsystemBase {
     }
 
     public void setMotor(double voltage) {
-        m_ArmMotor.setVoltage(voltage);
+        m_RightArmMotor.setVoltage(voltage);
     }
 
     public Command setPose(double position) {

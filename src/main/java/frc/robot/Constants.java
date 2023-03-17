@@ -85,7 +85,7 @@ public final class Constants {
       public static final int driveMotorID = 7;
       public static final int angleMotorID = 8;
       public static final int canCoderID = 11;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(42.01);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(130.7);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -95,7 +95,7 @@ public final class Constants {
       public static final int driveMotorID = 1;
       public static final int angleMotorID = 2;
       public static final int canCoderID = 12;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(282.39);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(8.7);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -105,7 +105,7 @@ public final class Constants {
       public static final int driveMotorID = 5;
       public static final int angleMotorID = 6;
       public static final int canCoderID = 9;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(322.21);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(52.1);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -115,7 +115,7 @@ public final class Constants {
       public static final int driveMotorID = 3;
       public static final int angleMotorID = 4;
       public static final int canCoderID = 10;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(168.22);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(173.9);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -138,8 +138,9 @@ public final class Constants {
   }
 
   public static final class ArmConstants {
-    public static final int PIVOT_MOTOR = 13;
-    public static final int TELESCOPE_MOTOR = 14;
+    public static final int PIVOT_MOTOR_RIGHT = 13;
+    public static final int PIVOT_MOTOR_LEFT = 14;
+    public static final int TELESCOPE_MOTOR = 15;
     public static final double maxMotorVoltage = 12;
 
     public static double kP;
@@ -152,26 +153,20 @@ public final class Constants {
     public static double kG;
 
     public enum Position {
-      STOWED(0.0, 0.0),
-      FLOOR(1.0, 1.0),
-      MID(2.0, 2.0),
-      TOP(3.0, 3.0),
-      LOAD(3.5, 3.0);
+      STOWED(0.0),
+      FLOOR(1.0),
+      MID(2.0),
+      TOP(3.0),
+      LOAD(3.5);
 
       private double pivotPos;
-      private double telescopePos;
 
-      private Position(double pivot, double telescope) {
+      private Position(double pivot) {
         this.pivotPos = pivot;
-        this.telescopePos = telescope;
       }
 
       public double getPivot() {
         return pivotPos;
-      }
-
-      public double getTelescope() {
-        return telescopePos;
       }
     }
   }

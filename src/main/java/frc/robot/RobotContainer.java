@@ -38,6 +38,7 @@ public class RobotContainer {
 
   /* Commands */
   private PivotArm m_Pivot;
+  private MoveTelescope m_Telescope;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -51,6 +52,9 @@ public class RobotContainer {
 
     m_Pivot = new PivotArm(m_ArmPivot, operator);
     m_ArmPivot.setDefaultCommand(m_Pivot);
+
+    m_Telescope = new MoveTelescope(m_ArmTelescope, operator);
+    m_ArmTelescope.setDefaultCommand(m_Telescope);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -69,10 +73,7 @@ public class RobotContainer {
 
     /* Operator Buttons */
     operator.rightBumper().onTrue(new ToggleGrabber(m_Grabber));
-    //operator.y().onTrue(new PivotArm(m_ArmPivot, operator));
-    operator.rightTrigger().whileTrue(new RetractTelescope(m_ArmTelescope));
-    operator.leftTrigger().whileTrue(new ExtendTelescope(m_ArmTelescope));
-  }
+   }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

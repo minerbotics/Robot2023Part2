@@ -22,7 +22,7 @@ public class PivotArm extends CommandBase {
 
     @Override
     public void execute() {
-        m_Pivot.setMotor(m_Controller.getLeftY());
+        m_Pivot.setMotor(-m_Controller.getLeftY());
     }
     
 }
